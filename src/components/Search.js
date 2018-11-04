@@ -1,16 +1,32 @@
 import React, { Component } from 'react'
 
 export default class Search extends Component {
+
+  state = {
+    cityID: ''
+  }
+
+  onChange = event => {
+    this.setState({
+      cityID: event.target.value,
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { cityID } = this.state;
+    this.props.handleSearchWeather(cityID);
+  }
+
   render() {
+  
+
     return (
-      <div className=" ">
-        <p className="control has-icons-left">
-          <input className="input is-info" type="text" placeholder="Filter" onChange={this.handleSearch}/>
-          <span className="icon is-small is-left">
-            <i className="fas fa-search" aria-hidden="true"></i>
-          </span>
-        </p>
-      </div>
+      <form className=" form " onSubmit={this.handleSubmit}>
+       <input className="input is-success" placeholder="" type="text" value={this.state.cityID}  onChange={this.onChange} />
+       <input className="button is-success" type="submit" value="search"/>
+      </form>
+      
       
     )
   }

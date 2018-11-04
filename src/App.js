@@ -3,11 +3,12 @@ import './App.css';
 import cityID from './lib/city.list.json';
 import weatherService from './lib/weatherService';
 import Card from './components/Card';
+import Search from './components/Search';
 
 class App extends Component {
 
   state = {
-    weatherByCityData: [],
+    weatherByCityData: null,
     randomWeather: {},
     isLoading: true,
   }
@@ -22,7 +23,7 @@ class App extends Component {
     this.setState({
       isLoading: true,
     })
-
+    
     let randomIDs = [];
 
     for (let i = 0; i < 2; i++) {
@@ -32,7 +33,6 @@ class App extends Component {
     
     weatherService.getInitialWeather(randomIDs)
     .then((randomWeather) => {
-      console.log(randomWeather);
       this.setState({
         randomWeather: randomWeather.list,
         isLoading: false,
@@ -51,6 +51,7 @@ class App extends Component {
 
     weatherService.getWeatherByCity(SearchByCityID)
     .then((weatherByCityData)=> {
+      console.log(weatherByCityData);
       this.setState({
         weatherByCityData: weatherByCityData,
         isLoading: false,
@@ -63,11 +64,17 @@ class App extends Component {
 
 
   render() {
-    const { randomWeather, isLoading } = this.state;
-
+    const { randomWeather, isLoading, weatherByCityData } = this.state;
+    
     return (
       <div className="App">
-        <div className="  weather-card-container ">
+        <Search  handleSearchWeather={this.handleSearchWeather} key={'SearchBar'}/>
+        { isLoading ? <h1> ...Loading </h1> :
+          <div className=" main-weather ">
+            { weatherByCityData ? <Card city={weatherByCityData} /> : null }
+          </div>
+        } 
+        <div className="  weather-card-container ">        
           { isLoading ? <h1>...Loading</h1> :
             randomWeather.map(city => {
               return <Card city={city} key={city.id}/>

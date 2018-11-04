@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -33,6 +34,12 @@
   }
 }
 
+/* ------------------------- Main Weather -----------------------------*/
+
+.main-weather {
+  width: 100%;
+}
+
 
 
 
@@ -52,3 +59,4 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+

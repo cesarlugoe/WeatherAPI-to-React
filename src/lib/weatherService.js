@@ -11,7 +11,8 @@ class WeatherService{
 
   getInitialWeather(randomIDs){
     return this.weatherService.get(`/group?id=${randomIDs}&units=metric&APPID=${APIKey}`)
-    .then(({ data }) => data );
+    .then(({ data }) => {
+    return data });
   }
 
   getWeatherByCity(SearchByCityID) {
